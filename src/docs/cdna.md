@@ -11,13 +11,13 @@ The cDNA data type describes the complimentary DNA to the RNA product of a trans
 ## Notes
 1. Fields may not be null.
 2. In the case of operons or other polycistronic genes, the cDNA will include intermediate UTRs.
-3. cDNAs are not Features, and their sequences do not necessarily correspond to any genomic sequence. Therefore, cDNA Sequences will be stored in RefGet and can be retrieved using sequence_checksum.
+3. cDNAs are not Features, and their complete sequences do not necessarily correspond to any genomic sequence. Therefore, cDNA Sequences will be stored in RefGet and can be retrieved using sequence_checksum.
 
 ## Examples
 ```json
 {
     "length": 20,
-    "sequence_checksum": "md5:e8f2b6ffd919c3cd209cb68afe8872da",
+    "sequence_checksum": "e8f2b6ffd919c3cd209cb68afe8872da",
     "sequence": "ACGGATCGACAGTAGTTAGA"
 }
 ```
