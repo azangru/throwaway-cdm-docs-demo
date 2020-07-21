@@ -1,6 +1,6 @@
 # Intron
 
-The `Intron` data type describes the releative location of an intron in a `Transcript`.
+The `Intron` data type stores the relative location of an intron in a `Transcript` and also stores a `Slice` which describes the position of the `Intron` on a coordinate system.
 
 Intron has the following fields:
 
