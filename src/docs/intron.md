@@ -11,7 +11,7 @@ Intron has the following fields:
 | slice             | Slice            | see Slice
 | so_term           | string           | ontology term
 | relative_location | RelativeLocation | see RelativeLocation
-| type              | string           | feature type
+| type              | string           | type is Intron
 
 ## Notes
 1. All introns that make up a transcript are stored together in a list called introns. The index of an intron reflectes the postion of the intron relative to its surrounding introns. The order is determined by the alternating pattern of exons and introns in a transcript.
@@ -42,6 +42,6 @@ Intron has the following fields:
   },
   "sequence": "ACTGCGTAGTT",
   "so_term": "intron",
-  "type": "???"
+  "type": "Intron"
 }
 ```
