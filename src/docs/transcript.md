@@ -20,6 +20,7 @@ The Transcript data type describes one of the possible splicing for a gene. `Tra
 ```json
 {
   "symbol": "BRCA2",
+  "relative_location": {},
   "stable_id": "ENST00000380152",
   "version": "7",
   "type": "protein_coding",
