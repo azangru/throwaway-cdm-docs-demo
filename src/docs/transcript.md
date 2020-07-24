@@ -1,6 +1,6 @@
 # Transcript
 
-The Transcript data type describes one of the possible splicings for a gene. `Transcript` has the following fields:
+The Transcript data type describes a operational unit of a gene. In a genomic context, transcripts consist of one or more exons, with adjoining exons being separated by introns. The exons/introns are transcribed and then the introns spliced out. Transcripts may or may not encode a protein. `Transcript` has the following fields:
 
 | Field                       | Type                              | Description                         |
 |-----------------------------|-----------------------------------|-------------------------------------|
