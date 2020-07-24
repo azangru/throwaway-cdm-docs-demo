@@ -2,8 +2,6 @@
 
 The `Intron` data type represents a fragment of a gene that is removed by RNA splicing to produce the final messenger RNA molecule. It has the following fields:
 
-Intron has the following fields:
-
 | Field             | Type             | Description |
 |-------------------|------------------|-------------|
 | index             | integer          | Index of Intron
