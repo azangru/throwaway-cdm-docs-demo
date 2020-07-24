@@ -1,6 +1,6 @@
 # Intron
 
-The `Intron` data type stores the relative location of an intron in a `Transcript` and also stores a `Slice` which describes the position of the `Intron` on a coordinate system.
+The `Intron` data type represents a fragment of a gene that is removed by RNA splicing to produce the final messenger RNA molecule. It has the following fields:
 
 Intron has the following fields:
 
