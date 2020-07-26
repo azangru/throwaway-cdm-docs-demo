@@ -1,6 +1,6 @@
 # cDNA
 
-The cDNA data type describes the complimentary DNA to the RNA product of a transcript. In biological terms, the cDNA represents the compliment of the messenger (or other) RNA, after any splicing and RNA-editing. `cDNA` has the following fields:
+The sequence of the spliced exons of a transcript expressed in DNA notation (T rather than U), representing the coding or sense strand. The cDNA contains the whole sequence of the RNA, including coding and untranslated sequence. The sequence reflects any RNA editing. `cDNA` has the following fields:
 
 | Field             | Type      | Description                         |
 |-------------------|-----------|-------------------------------------|
