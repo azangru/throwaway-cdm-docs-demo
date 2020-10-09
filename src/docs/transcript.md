@@ -10,7 +10,7 @@ The Transcript data type describes a operational unit of a gene. In a genomic co
 | version                     | integer                           | Version of the transcript
 | unversioned_stable_id       | string                            | Unversioned unique identifier for the transcript
 | type                        | string                            | The value is always `Transcript`
-| so_term                     | string                            | Sequence Ontology accession describing the transcript biotype
+| so_term                     | string                            | Sequence Ontology term describing the transcript biotype
 | sequence                    | string                            | Genomic sequence on the forward strand from the lowest 5' end coordinate to the highest 3' end coordinate
 | slice                       | Slice                             | Slice describing the coordinates of the transcript
 | spliced_exons               | array of SplicedExon              | The ordered list of exons of the transcript
@@ -26,7 +26,7 @@ The Transcript data type describes a operational unit of a gene. In a genomic co
   "version": 7,
   "unversioned_stable_id":"ENST00000380152",
   "type": "Transcript",
-  "so_term": "SO:0000010",
+  "so_term": "protein_coding",
   "sequence": "AAGCTTTTGTAATTTTAAAAAATT",
   "slice": {},
   "spliced_exons": [],
