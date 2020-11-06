@@ -37,3 +37,33 @@
     ]
 }
 ```
+
+
+## 2020-11-06
+
+### Alignments
+```
+{
+    "type": "Whole Genome Alignment",
+    "name": "mammals",
+    "method": "LASTZ pairwise",
+    "alignment_blocks": [
+        Alignment, Alignment, ...
+    ],
+}
+
+{
+    "type": "Alignment",
+    "sequences": [Aligned Sequence, Aligned Sequence, ...]
+}
+
+{
+    "type": "Aligned Sequence",
+    "assembly": Assembly,
+    "unaligned_sequence": "AAAAGGGGGTTTT....",
+    "slice": Slice,
+    "cigar": [
+        [5, 'X'], ['100', 'M'], ['200', 'D'], ['1', 'M']
+    ],
+}
+```
