@@ -42,7 +42,7 @@
 ## 2020-11-06
 
 ### Alignments
-```
+```json
 {
     "type": "Whole Genome Alignment",
     "name": "mammals",
