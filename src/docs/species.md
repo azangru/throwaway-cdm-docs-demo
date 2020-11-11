@@ -2,11 +2,11 @@
 
 The Species data type contains information sufficient to describe a given species. It consists of the following fields:
 
-| Field               | Type      | Description                               |
-|---------------------|-----------|-------------------------------------------|
-| scientific_name     | string    | Scientific name of the species.
-| name                | string    | Common or familiar name of the species.
-| taxon_id            | integer   | Taxonomic identifier.
+| Field               | Type             | Description                               |
+|---------------------|------------------|-------------------------------------------|
+| scientific_name     | string           | Scientific name of the species.
+| name                | string or null   | Common or familiar name of the species.
+| taxon_id            | integer          | Taxonomic identifier.
 
 ## Examples
 
@@ -25,7 +25,7 @@ The Species data type contains information sufficient to describe a given specie
 ```json
 {
   "scientific_name": "Thermotomaculum hydrothermale",
-  "name": "thermotomaculum hydrothermale",
+  "name": null,
   "taxon_id": 981385
 }
 ```
