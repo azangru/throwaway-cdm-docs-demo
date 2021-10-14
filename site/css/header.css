@@ -1,3 +1,21 @@
 header {
+  display: flex;
+  align-items: center;
   font-size: 20px;
+  height: 60px;
+  padding: 0 1rem 1.5rem;
+}
+
+.ensembl-logotype {
+  display: inline-block;
+  height: 30px;
+  margin-right: 1rem;
+}
+
+.ensembl-logotype img {
+  height: 100%;
+}
+
+x-search {
+  margin-left: auto;
 }

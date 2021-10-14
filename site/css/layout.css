@@ -1,21 +1,23 @@
 body {
   display: grid;
-  grid-template-columns: [aside] auto [main] 1fr;
-  grid-template-rows: [header] auto [main] 1fr;
+  grid-template-areas: 
+    'header header'
+    'aside main';
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   column-gap: 2rem;
 }
 
 main {
-  grid-column: main;
-  grid-row: main;
+  grid-area: main;
 }
 
 header {
-  grid-row: header;
+  grid-area: header;
 }
 
 aside {
-  grid-column: aside;
+  grid-area: aside;
 }
 
 ul.navigation {

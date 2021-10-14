@@ -32,7 +32,8 @@ module.exports = function(config) {
 
   // Copy files and folders unchanged to output folder
   config.addPassthroughCopy("css");
-  // config.addPassthroughCopy('img');
+  config.addPassthroughCopy("js");
+  config.addPassthroughCopy('images');
   // config.addPassthroughCopy('CNAME');
   // config.addPassthroughCopy('.nojekyll');
 

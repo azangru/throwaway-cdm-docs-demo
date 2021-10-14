@@ -5,7 +5,7 @@ module.exports = function (collection) {
   const index = lunr(function () {
     // this.field("title");
     this.field("content");
-    this.ref('url');
+    this.ref('id');
 
     // loop through each page and add it to the index
     collection.forEach((page) => {
