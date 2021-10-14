@@ -10,6 +10,7 @@ body {
 
 main {
   grid-area: main;
+  padding-left: 80px;
 }
 
 header {

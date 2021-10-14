@@ -13,8 +13,12 @@ export class Search extends LitElement {
       box-sizing: border-box;
     }
 
+    input, matches {
+      font-size: 16px;
+    }
+
     input {
-      width: 200px;
+      width: 100%;
     }
 
     ul {
@@ -27,7 +31,7 @@ export class Search extends LitElement {
       position: absolute;
       left: 0;
       bottom: 0;
-      top: 100%;
+      top: calc(100% + 6px);
       width: 100%;
       height: fit-content;
       overflow-x: hidden;
@@ -35,6 +39,14 @@ export class Search extends LitElement {
       padding: 0.6rem;
       border: 1px solid rgb(229, 231, 235);
       box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    }
+
+    li {
+      padding: 0.4rem 0;
+    }
+
+    a, a:visited, a:active {
+      color: var(--link-color)
     }
   
   `;
@@ -70,7 +82,6 @@ export class Search extends LitElement {
   }
 
   render() {
-    console.log('render', this.index);
     if (!this.index) {
       return null;
     }

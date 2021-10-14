@@ -1,10 +1,15 @@
-html, body {
-  height: 100%;
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
   font-family: "IBM Plex Sans",Helvetica,Arial,sans-serif;
 }
 
 body {
   margin: 0;
+  padding-bottom: 3rem;
 }
 
 h1 {
@@ -39,5 +44,5 @@ p {
 }
 
 a, a:visited, a:active {
-  color: #2a57a3;
+  color: var(--link-color);
 }
