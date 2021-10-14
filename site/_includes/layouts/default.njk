@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>{{title | default("Ensembl Projects")}}</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='{{ "/css/styles.css" }}' rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header>
+      Ensembl core data model
+    </header>
+
+    <main>
+      <div class="content">
+        {{ content | safe }}
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        {% for article in collections.articles %}
+          <li>
+            <a href="{{ article.url }}">{{ article.fileSlug }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </aside>
+
+  </body>
+</html>

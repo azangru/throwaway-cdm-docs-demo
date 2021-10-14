@@ -1,0 +1,16 @@
+{
+  "description": "Ensembl core data model documentation site",
+  "scripts": {
+    "clean": "rm -rf build",
+    "copy-docs": "rm -rf docs && cp -r ../src/docs . && cp partials/docs.11tydata.json docs",
+    "prebuild": "npm run clean && npm run copy-docs",
+    "build": "eleventy",
+    "predev": "npm run clean && npm run copy-docs",
+    "dev": "eleventy --serve"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "0.12.1",
+    "lunr": "2.3.9"
+  }
+}
