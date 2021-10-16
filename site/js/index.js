@@ -76,13 +76,13 @@ export class Search extends LitElement {
   }
 
   async fetchIndex() {
-    const rawIndex = await fetch("./search-index.json")
+    const rawIndex = await fetch("/throwaway-cdm-docs-demo/search-index.json")
       .then((response) => response.json());
     this.index = lunr.Index.load(rawIndex);
   }
 
   async fetchArticleTitles() {
-    const articleTitles = await fetch("./atricle-titles.json")
+    const articleTitles = await fetch("/throwaway-cdm-docs-demo/atricle-titles.json")
       .then((response) => response.json());
     this.articleTitles = articleTitles;
   }
@@ -109,11 +109,12 @@ export class Search extends LitElement {
   }
 
   renderMatches() {
+    // REMOVE /throwaway-cdm-docs-demo/ prefix for real deployment
     return html`
       <ul class="matches">
         ${ this.matches.map(match => html`
           <li>
-            <a href="${match.ref}">${this.articleTitles[match.ref]  }</a>
+            <a href="/throwaway-cdm-docs-demo/${match.ref}">${this.articleTitles[match.ref]  }</a>
           </li>
         `)}
       </ul>

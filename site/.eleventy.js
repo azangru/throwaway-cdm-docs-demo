@@ -61,6 +61,7 @@ module.exports = function(config) {
     dir: {
       output: './build',
       layouts: "_includes/layouts"
-    }
+    },
+    pathPrefix: "/throwaway-cdm-docs-demo/" // FIXME for real deployment
   };
 };
