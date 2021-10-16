@@ -109,11 +109,12 @@ export class Search extends LitElement {
   }
 
   renderMatches() {
+    // REMOVE /throwaway-cdm-docs-demo/ prefix for real deployment
     return html`
       <ul class="matches">
         ${ this.matches.map(match => html`
           <li>
-            <a href="${match.ref}">${this.articleTitles[match.ref]  }</a>
+            <a href="/throwaway-cdm-docs-demo/${match.ref}">${this.articleTitles[match.ref]  }</a>
           </li>
         `)}
       </ul>
