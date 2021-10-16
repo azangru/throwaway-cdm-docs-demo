@@ -2,6 +2,7 @@ const util = require('util');
 // const yaml = require('js-yaml');
 
 const searchFilter = require('./filters/searchFilter');
+const articleTitlesFilter = require('./filters/articleTitlesFilter');
 
 module.exports = function(config) {
 
@@ -20,15 +21,34 @@ module.exports = function(config) {
   // config.addLayoutAlias('default', 'layouts/default.njk');
 
   config.addFilter('search', searchFilter);
+  config.addFilter('articleTitles', articleTitlesFilter);
 
   // Add contents of the _projects folder to the projects collection
-  config.addCollection('articles', (collection) => collection
-    .getFilteredByGlob('docs/*.md')
-    // .map(item => {
-    //   // console.log('item', item);
-    //   return Promise.resolve(item);
-    // })
-  );
+  config.addCollection('articles', (collection) => {
+    const articlesCollection = collection
+      .getFilteredByGlob('docs/*.md')
+      .map(item => {
+        const title = item.template.frontMatter.content.match(/#(.+)/)[1].trim();
+        // console.log(item.template.frontMatter.content);
+        item.data.title = title; // FIXME: this is hackery!
+        return item;
+      });
+    articlesCollection.sort((item1, item2) => {
+      const title1 = item1.data.title;
+      const title2 = item2.data.title;
+      const charCode1 = title1.toLowerCase().charCodeAt(0);
+      const charCode2 = title2.toLowerCase().charCodeAt(0);
+
+      if (title1.startsWith(title2)) {
+        return 1;
+      } else if (title2.startsWith(title1)) {
+        return -1;
+      } else {
+        return charCode1 - charCode2;
+      }
+    })
+    return articlesCollection;
+  });
 
   // Copy files and folders unchanged to output folder
   config.addPassthroughCopy("css");

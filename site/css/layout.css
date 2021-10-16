@@ -26,6 +26,14 @@ ul.navigation {
   padding-left: 1rem;
 }
 
+ul.navigation li {
+  padding: 0.2rem 0;
+}
+
 .content {
   max-width: 80ch;
+}
+
+pre {
+  overflow-x: auto;
 }

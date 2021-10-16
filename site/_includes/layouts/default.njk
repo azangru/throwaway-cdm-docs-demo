@@ -12,7 +12,9 @@
   <body>
     <header>
       <span class="ensembl-logotype">
-        <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
       </span>
       <span>
         core data model
@@ -30,7 +32,7 @@
       <ul class="navigation">
         {% for article in collections.articles %}
           <li>
-            <a href="{{ article.url }}">{{ article.fileSlug }}</a>
+            <a href="{{ article.url }}">{{ article.data.title }}</a>
           </li>
         {% endfor %}
       </ul>

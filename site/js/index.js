@@ -53,6 +53,7 @@ export class Search extends LitElement {
 
   static properties = {
     index: { state: true },
+    articleTitles: { state: true },
     matches: { state: true }
   };
 
@@ -64,7 +65,14 @@ export class Search extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.fetchIndex();
+    this.fetchData();
+  }
+
+  async fetchData() {
+    await Promise.all([
+      this.fetchIndex(),
+      this.fetchArticleTitles()
+    ]);
   }
 
   async fetchIndex() {
@@ -73,16 +81,25 @@ export class Search extends LitElement {
     this.index = lunr.Index.load(rawIndex);
   }
 
+  async fetchArticleTitles() {
+    const articleTitles = await fetch("/atricle-titles.json")
+      .then((response) => response.json());
+    this.articleTitles = articleTitles;
+  }
+
   search = (event) => {
     const query = event.target.value;
+    console.log('query', query);
     if (!query) {
+      console.log('here?');
       this.matches = [];
+    } else {
+      this.matches = this.index.search(query);
     }
-    this.matches = this.index.search(query);
   }
 
   render() {
-    if (!this.index) {
+    if (!this.index || !this.articleTitles) {
       return null;
     }
     return html`
@@ -96,7 +113,7 @@ export class Search extends LitElement {
       <ul class="matches">
         ${ this.matches.map(match => html`
           <li>
-            <a href="${match.ref}">${match.ref}</a>
+            <a href="${match.ref}">${this.articleTitles[match.ref]  }</a>
           </li>
         `)}
       </ul>
