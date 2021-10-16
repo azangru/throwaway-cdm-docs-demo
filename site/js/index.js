@@ -76,13 +76,13 @@ export class Search extends LitElement {
   }
 
   async fetchIndex() {
-    const rawIndex = await fetch("/search-index.json")
+    const rawIndex = await fetch("./search-index.json")
       .then((response) => response.json());
     this.index = lunr.Index.load(rawIndex);
   }
 
   async fetchArticleTitles() {
-    const articleTitles = await fetch("/atricle-titles.json")
+    const articleTitles = await fetch("./atricle-titles.json")
       .then((response) => response.json());
     this.articleTitles = articleTitles;
   }
