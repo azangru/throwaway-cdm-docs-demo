@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Phased Exon</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Phased Exon</h1>
+<p><em>provisional name</em></p>
+<p>The <code>Phased Exon</code> data type combines the immutable, context-independent set of properties of an <code>Exon</code> (q.v.) with the properties that characterise arrangement of exons in mature messenger RNA. <code>Phased Exon</code> has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>integer</td>
+<td>0-based, denotes order of exons in mature messenger RNA</td>
+</tr>
+<tr>
+<td>start_phase</td>
+<td>ExonPhase</td>
+<td>see below</td>
+</tr>
+<tr>
+<td>end_phase</td>
+<td>ExonPhase</td>
+<td>see below</td>
+</tr>
+<tr>
+<td>exon</td>
+<td>Exon</td>
+<td>context-independent properties of the exon, see <code>Exon</code></td>
+</tr>
+</tbody>
+</table>
+<h2>ExonPhase</h2>
+<p><code>ExonPhase</code> is an enum of integers: <code>-1</code>, <code>0</code>, <code>1</code>, or <code>2</code>.</p>
+<p>Biologically, <code>ExonPhase</code> refers to the position of an exon/intron boundary within a codon. A phase of <code>0</code> means the boundary falls between codons, <code>1</code> means between the first and second nucleotide, and <code>2</code> means between the second and third nucleotide. Phase is always calculated in 5'-&gt;3' direction. Since for non-coding transcripts the concept of codon does not apply, non-coding exons have both start and end phase of <code>-1</code>.</p>
+<p>In ascii art, with alternate codons represented by <code>###</code> and <code>+++</code>, ExonPhase can be illustrated like this:</p>
+<pre><code>
+    Previous Exon   Intron   This Exon
+...-------------            -------------...
+5'                   Phase                 3'
+...#+++###+++###       0    +++###+++###+...
+...+++###+++###+       1    ++###+++###++...
+...++###+++###++       2    +###+++###+++...
+
+</code></pre>
+<h2>Rationale</h2>
+<p>Similarly to <code>Spliced Exon</code>, <code>Phased Exon</code> supports the separation of context-independent exon properties (through the <code>Exon</code> data type) and the properties that emerge within a context of mature messenger RNA.</p>
+<h2>Notes</h2>
+<ol>
+<li><code>Phased Exons</code> are a property of <code>Product-Generating Context</code>. Ordinarily, they all are children of the same parent transcript; but in cases of trans-splicing they will include exons from other transcripts.</li>
+</ol>
+<h2>Example</h2>
+<pre><code class="language-json">{
+  &quot;start_phase&quot;: 0,
+  &quot;end_phase&quot;: 0,
+  &quot;index&quot;: 0,
+  &quot;exon&quot;: {
+    &quot;stable_id&quot;: &quot;ENSE00003856928&quot;,
+    &quot;version&quot;: 1,
+    &quot;type&quot;: &quot;Exon&quot;,
+    &quot;slice&quot;: {
+      &quot;location&quot;: {
+        &quot;start&quot;: 32315086,
+        &quot;end&quot;: 32315145,
+        &quot;length&quot;: 60
+      },
+      &quot;region&quot;: {
+        &quot;name&quot;: &quot;13&quot;,
+        &quot;code&quot;: &quot;chromosome&quot;
+      },
+      &quot;strand&quot;: {
+        &quot;code&quot;: &quot;forward&quot;,
+        &quot;value&quot;: 1
+      }
+    },
+    &quot;sequence&quot;: &quot;AAGCTTTTGTAAGATCGGCTCGCTTTGGGGAACAGGTCTTGAGAGAACATCCCTTTTAAG&quot;
+  }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

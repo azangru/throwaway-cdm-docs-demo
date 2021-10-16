@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>CDS</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>CDS</h1>
+<p>The <code>CDS</code> (<strong>c</strong>o<strong>d</strong>ing <strong>s</strong>equence) data type represents the region of a cDNA that is translated. It includes the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>integer</td>
+<td>genomic start coordinate (1-based)</td>
+</tr>
+<tr>
+<td>end</td>
+<td>integer</td>
+<td>genomic end coordinate (1-based, inclusive)</td>
+</tr>
+<tr>
+<td>relative_start</td>
+<td>integer</td>
+<td>start coordinate relative to <code>Transcript</code>'s genomic start (1-based)</td>
+</tr>
+<tr>
+<td>relative_end</td>
+<td>integer</td>
+<td>end coordinate relative to <code>Transcript</code>'s genomic start (1-based, inclusive)</td>
+</tr>
+<tr>
+<td>nucleotide_length</td>
+<td>integer</td>
+<td>total number of nucleotides comprising the CDS</td>
+</tr>
+<tr>
+<td>protein_length</td>
+<td>integer</td>
+<td>number of amino acids in the protein encoded by the CDS</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>Sequence</td>
+<td>see Sequence</td>
+</tr>
+</tbody>
+</table>
+<h2>Notes</h2>
+<ol>
+<li>The stop codon is included as part of the CDS sequence.</li>
+<li>The <code>CDS</code> data type does not have a dedicated <code>slice</code> field, because a <code>CDS</code> can be retrieved only as a part of a parent <code>Feature</code> (<code>Transcript</code>), and thus will share the same <code>Region</code> and <code>Strand</code> as that <code>Feature</code>.</li>
+</ol>
+<h2>Example</h2>
+<p><em>notice that the nucleotide length of the CDS cannot be derived from its genomic coordinates, because of the mRNA editing that has removed the introns</em></p>
+<pre><code class="language-json">{
+  &quot;start&quot;: 32316461,
+  &quot;end&quot;: 32316527,
+  &quot;relative_start&quot;: 1376,
+  &quot;relative_end&quot;: 1442,
+  &quot;nucleotide_length&quot;: 66,
+  &quot;protein_length&quot;: 22,
+  &quot;sequence&quot;: {
+    ...
+  }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

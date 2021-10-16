@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Relative Location</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Relative Location</h1>
+<p>The <code>Relative Location</code> data type describes the position of a Feature <strong>relative to its immediate parent feature</strong>. It has the same fields as does <code>Location</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>integer</td>
+<td>start coordinate</td>
+</tr>
+<tr>
+<td>end</td>
+<td>integer</td>
+<td>end coordinate</td>
+</tr>
+<tr>
+<td>length</td>
+<td>integer</td>
+<td>number of nucleotides between start and end coordinates, inclusive</td>
+</tr>
+</tbody>
+</table>
+<h2>Rationale</h2>
+<p>The purpose of the <code>Relative Location</code> data type is to supply the client with coordinates of a feature relative to its immediate parent to relieve the client of the need to calculate these positions by itself. The value of <code>Relative Location</code> becomes particularly noticeable for features on the reverse strand or on a circular chromosome overlapping the origin.</p>
+<h2>Notes</h2>
+<ol>
+<li><code>Relative Location</code> is relative to the location of the immediate parent feature. For example, <code>Transcript</code>'s <code>Relative Location</code> is relative to the location of the <code>Gene</code> that produces this <code>Transcript</code>. Similarly, <code>Exon</code>'s <code>Relative Location</code> is relative to the location of the <code>Transcript</code> that contains this <code>Exon</code>.</li>
+<li><code>Relative Location</code> is always calculated in the 5'-&gt;3' direction. Therefore, on the forward strain, relative coordinate 1 points at the same nucleotide as the <strong>start</strong> coordinate of the parent feature; and on the reverse strand relative coordinate 1 points at the same nucleotide as the <strong>end</strong> coordinate of the parent feature.</li>
+<li>In contrast to <code>Location</code>, <code>Relative Location</code> guarantees that the end coordinate will be greater than the start coordinate.</li>
+</ol>
+<h2>Examples</h2>
+<h3>Calculating Relative Location</h3>
+<ol>
+<li>For feature on the forward strand (exon ENSE00003856928 within transcript ENST00000671466.1)</li>
+</ol>
+<ul>
+<li>given that the transcript is on the forward strand</li>
+<li>and transcript's genomic coordinates are: start 32315086 and end 32316527</li>
+<li>and exon's genomic coordinates are start 32315086 and end 32315145,</li>
+</ul>
+<p>The exon's relative locaiton is:</p>
+<p><code>start = exon start - transcript start + 1</code>, i.e. <code>32315086 - 32315086 + 1</code>, i.e. <code>1</code></p>
+<p><code>end = exon end - transcript start  + 1</code>, i.e. <code>32315145 - 32315086 + 1</code>, i.e. <code>60</code></p>
+<p><code>length = relative end - relative start + 1</code>, i.e. <code>60 - 1 + 1</code>, i.e. 60</p>
+<pre><code class="language-json">{
+  &quot;start&quot;: 1,
+  &quot;end&quot;: 60,
+  &quot;length&quot;: 60
+}
+</code></pre>
+<ol start="2">
+<li>For feature on the reverse strand (transcript ENST00000530622 transcribed from gene ENSG00000139597)</li>
+</ol>
+<ul>
+<li>given that the gene is on the reverse strand</li>
+<li>and the gene's genomic coordinates are: start 32400723 and end 32428311</li>
+<li>and the transcript's genomic coordinates are: start 32401677 and end 32411606</li>
+</ul>
+<p>The transcript's relative location is:</p>
+<p><code>start = gene end - transcript end - 1</code>, i.e. <code>32428311 - 32411606 + 1</code>, i.e. <code>16706</code></p>
+<p><code>end = gene end - transcript start  - 1</code>, i.e. <code>32428311 - 32401677 + 1</code>, i.e. <code>26635</code></p>
+<p><code>length = relative end - relative start + 1</code>, i.e. <code>26635 - 16706 + 1</code>, i.e. <code>9930</code></p>
+<pre><code class="language-json">{
+  &quot;start&quot;: 16706,
+  &quot;end&quot;: 26635,
+  &quot;length&quot;: 9930
+}
+</code></pre>
+<ol start="3">
+<li>For feature on the reverse strand of a circular chromosome (transcript CAK10225 transcribed from gene RL4742)</li>
+</ol>
+<ul>
+<li>given that the gene is on the reverse strand and overlaps the origin</li>
+<li>and the chromosome is circular and has a length of 5057142bp</li>
+<li>and the gene's genomic coordinates are: start 5056183 and end 72</li>
+<li>and the transcript's genomic coordinates are: start -959 and end 72</li>
+</ul>
+<p>The transcript's relative location is:</p>
+<p><code>start = gene end - transcript end + 1</code>, i.e. <code>72 - 72 + 1</code>, i.e. <code>1</code></p>
+<p><code>end = gene end - transcript end + 1</code>, i.e. <code>72 - -959 + 1</code>, i.e. <code>1032</code></p>
+<p><code>length = relative end - relative start + 1</code>, i.e. <code>1032 - 1 + 1</code>, i.e. <code>1032</code></p>
+<pre><code class="language-json">{
+  &quot;start&quot;: 1,
+  &quot;end&quot;: 1032,
+  &quot;length&quot;: 1032
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

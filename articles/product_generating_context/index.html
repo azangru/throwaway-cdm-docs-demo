@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Product-Generating Context</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Product-Generating Context</h1>
+<p><em>provisional name; very much in search of a better one</em></p>
+<p>The <code>Product-Generating Context</code> data type contains information about the specific arrangement of exons that results in a product. It has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>product_type</td>
+<td>ProductType</td>
+<td>a string that denotes the type of the product that gets generated</td>
+</tr>
+<tr>
+<td>default</td>
+<td>boolean</td>
+<td>a flag indicating whether to treat this context as default</td>
+</tr>
+<tr>
+<td>cdna</td>
+<td>cDNA</td>
+<td>see <code>cDNA</code></td>
+</tr>
+<tr>
+<td>cds</td>
+<td>CDS or null</td>
+<td>see <code>CDS</code></td>
+</tr>
+<tr>
+<td>5_prime_utr</td>
+<td>UTR or null</td>
+<td>see <code>UTR</code></td>
+</tr>
+<tr>
+<td>3_prime_utr</td>
+<td>UTR or null</td>
+<td>see <code>UTR</code></td>
+</tr>
+<tr>
+<td>product</td>
+<td>Product</td>
+<td>a protein or RNA product, see <code>Product</code></td>
+</tr>
+<tr>
+<td>phased_exons</td>
+<td>array of PhasedExon</td>
+<td>see <code>PhasedExon</code></td>
+</tr>
+</tbody>
+</table>
+<h2>ProductType</h2>
+<p><code>ProductType</code> is an enum of strings from a controlled vocabulary, such as <code>protein</code>, or <code>miRNA</code>.</p>
+<h2>Rationale</h2>
+<p>By capturing the information about the arrangement of exons and the product that arises from it, the <code>Product-Generating Context</code> data type allows modelling a one-to-many relationship between the <code>Transcript</code> and the <code>Product</code>: one <code>Product-Generating Context</code> has one <code>Product</code>, but one <code>Transcript</code> can have multiple <code>Product-Generating Context</code>s.</p>
+<p>Note that <code>Product-Generating Context</code> is not intended to represent alternative splicing — this has been historically represented at Ensembl as different transcripts of a single gene. However, with <code>Product-Generating Context</code> it becomes possible to capture post-translational cleavage of a precursor polypeptide into several proteins, multiple initiation sites, or sequence edits.</p>
+<h2>Notes</h2>
+<ol>
+<li>The purpose of the <code>product_type</code> field in <code>Product-Generating Context</code> is to signal which values in other fields to expect. For example, only if the <code>product_type</code> is <code>protein</code> will the <code>cds</code> field contain the <code>CDS</code> data; in all other cases it will be <code>null</code>.</li>
+</ol>
+<h2>Examples</h2>
+<h3>In a coding transcript</h3>
+<p><code>Product-Generating Context</code> will have a non-empty <code>cds</code> field</p>
+<pre><code class="language-json">{
+  &quot;product_type&quot;: &quot;protein&quot;,
+  &quot;default&quot;: true,
+  &quot;cds&quot;: { ... },
+  &quot;5_prime_utr&quot;: { ... },
+  &quot;3_prime_utr&quot;: null,
+  &quot;phased_exons&quot;: [
+    { ... }
+  ],
+  &quot;product&quot;: { ... }
+}
+</code></pre>
+<h3>In a non-coding transcript</h3>
+<p>The <code>cds</code>, <code>5_prime_utr</code>, and <code>3_prime_utr</code> fields will be empty.</p>
+<pre><code class="language-json">{
+  &quot;product_type&quot;: &quot;miRNA&quot;,
+  &quot;default&quot;: true,
+  &quot;cds&quot;: null,
+  &quot;5_prime_utr&quot;: null,
+  &quot;3_prime_utr&quot;: null,
+  &quot;phased_exons&quot;: [
+    { ... }
+  ],
+  &quot;product&quot;: { ... }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

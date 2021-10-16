@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Gene</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Gene</h1>
+<p>The Gene data type contains the information to represents a locus, the genomic region where a gene is located. It will have at least one Transcript data type.
+<code>Gene</code> has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>Short name</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the gene from a known nomenclature such as HGNC</td>
+</tr>
+<tr>
+<td>alternative_symbols</td>
+<td>array of string</td>
+<td>List of alternative symbols</td>
+</tr>
+<tr>
+<td>alternative_names</td>
+<td>array of string</td>
+<td>List of alternative names</td>
+</tr>
+<tr>
+<td>stable_id</td>
+<td>string</td>
+<td>A unique identifier for the gene</td>
+</tr>
+<tr>
+<td>version</td>
+<td>integer</td>
+<td>Version of the gene</td>
+</tr>
+<tr>
+<td>unversioned_stable_id</td>
+<td>string</td>
+<td>Unversioned unique identifier for the gene</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>This is always <code>Gene</code></td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>GeneMetadata</td>
+<td>See <a href="./feature_metadata.md">feature_metadata</a></td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>string</td>
+<td>Genomic sequence on the forward strand from the lowest 5' end coordinate to the highest 3' end coordinate</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>Slice</td>
+<td>Slice describing the coordinates of the gene</td>
+</tr>
+<tr>
+<td>transcripts</td>
+<td>array of Transcript</td>
+<td>List of transcripts</td>
+</tr>
+</tbody>
+</table>
+<h2>Notes</h2>
+<ol>
+<li>alternative_symbols and alternative_names can be empty lists</li>
+</ol>
+<h2>Examples</h2>
+<pre><code class="language-json">{
+  &quot;symbol&quot;: &quot;BRCA2&quot;,
+  &quot;name&quot;: &quot;BRCA2 DNA repair associated&quot;,
+  &quot;alternative_symbols&quot;: [
+    &quot;BRCC2&quot;,
+    &quot;FACD&quot;,
+    &quot;FAD&quot;,
+    &quot;FAD1&quot;,
+    &quot;FANCD&quot;,
+    &quot;FANCD1&quot;,
+    &quot;XRCC11&quot;
+  ],
+  &quot;alternative_names&quot;: [
+    &quot;Fanconi anemia, complementation group D1&quot;,
+    &quot;BRCA1/BRCA2-containing complex, subunit 2&quot;
+  ],
+  &quot;stable_id&quot;: &quot;ENSG00000139618.15&quot;,
+  &quot;version&quot;: 15,
+  &quot;unversioned_stable_id&quot;: &quot;ENSG00000139618&quot;,
+  &quot;type&quot;: &quot;Gene&quot;,
+  &quot;metadata&quot;: {...},
+  &quot;slice&quot;: {},
+  &quot;transcripts&quot;: []
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

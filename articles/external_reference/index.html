@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>External Reference</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>External Reference</h1>
+<p>The <code>External Reference</code> data type represents a reference to a database outside of Ensembl. It has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>item's identifier in an external database</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>item name</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>additional information about the item</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string or null</td>
+<td>url for accessing the item in another resource</td>
+</tr>
+<tr>
+<td>assignment_method</td>
+<td>AssignmentMethod</td>
+<td>see below</td>
+</tr>
+<tr>
+<td>source</td>
+<td>ExternalDB</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<h2>AssignmentMethod</h2>
+<p>Data type describing the method by which an external reference was assigned to an item.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>a member of a short list of keywords</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>brief human-readable explanation</td>
+</tr>
+</tbody>
+</table>
+<h2>ExternalDB</h2>
+<p>Data type describing the source of the external reference.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>identifier of external database</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>name of external database</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>additional information about the database</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string or null</td>
+<td>url of the database</td>
+</tr>
+<tr>
+<td>release</td>
+<td>string or null</td>
+<td>identifier of data release</td>
+</tr>
+</tbody>
+</table>
+<h2>Notes</h2>
+<ol>
+<li><code>accession_id</code> of a given reference is not guaranteed to be unique</li>
+<li><code>assignment_method.type</code> can have one of the following values:</li>
+</ol>
+<ul>
+<li><code>CHECKSUM</code></li>
+<li><code>COORDINATE_OVERLAP</code></li>
+<li><code>DEPENDENT</code></li>
+<li><code>DIRECT</code></li>
+<li><code>INFERRED_PAIR</code></li>
+<li><code>MISC</code></li>
+<li><code>NONE</code></li>
+<li><code>PROBE</code></li>
+<li><code>PROJECTION</code></li>
+<li><code>SEQUENCE_MATCH</code></li>
+<li><code>UNMAPPED</code></li>
+</ul>
+<h2>Examples</h2>
+<ol>
+<li>
+<p>With populated urls:</p>
+<pre><code class="language-json">{
+  &quot;accession_id&quot;: &quot;NM_001374244&quot;,
+  &quot;name&quot;: &quot;NM_001374244.1&quot;,
+  &quot;description&quot;: null,
+  &quot;assignment_method&quot;: {
+    &quot;type&quot;: &quot;DIRECT&quot;,
+    &quot;description&quot;: &quot;A reference made by an external resource of annotation to an Ensembl feature that Ensembl imports without modification&quot;
+  },
+  &quot;url&quot;: &quot;https://www.ncbi.nlm.nih.gov/protein/NM_001374244&quot;,
+  &quot;source&quot;: {
+    &quot;id&quot;: &quot;RefSeq_mRNA&quot;,
+    &quot;name&quot;: &quot;RefSeq mRNA&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://www.ncbi.nlm.nih.gov/projects/RefSeq/&quot;,
+    &quot;release&quot;: null
+  }
+}
+</code></pre>
+</li>
+<li>
+<p>With empty urls:</p>
+<pre><code class="language-json">{
+  &quot;accession_id&quot;: &quot;ENST00000288602.11&quot;,
+  &quot;name&quot;: &quot;ENST00000288602.11&quot;,
+  &quot;description&quot;: null,
+  &quot;assignment_method&quot;: {
+    &quot;type&quot;: &quot;COORDINATE_OVERLAP&quot;,
+    &quot;description&quot;: &quot;A reference inferred from annotation of the same locus as a feature in Ensembl. Mostly relevant when comparing annotation between assemblies with different sequences than Ensembl for the same species&quot;
+  },
+  &quot;url&quot;: null,
+  &quot;source&quot;: {
+    &quot;id&quot;: &quot;UCSC&quot;,
+    &quot;name&quot;: &quot;UCSC Stable ID&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: null,
+    &quot;release&quot;: null
+  }
+}
+</code></pre>
+</li>
+</ol>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

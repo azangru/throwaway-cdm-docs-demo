@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Feature metadata</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Feature metadata</h1>
+<p>A feature may have various kinds of metadata associated with it. These pieces of metadata are described by the <code>Metadata</code> data type.</p>
+<h2>A metadata item</h2>
+<p>All metadata items will have the following fields in common:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>string, number, or boolean</td>
+</tr>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p><code>Metadata</code> items tend to fall into one of two categories: metadata derived from an external reference (XrefMetadata), and metadata derived from a value set (ValueSetMetadata).</p>
+<p>An <code>XrefMetadata</code> item will have the following shape (cf. <code>ExternalReference</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>item's identifier in an external database</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>relevant information about the item</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>url for accessing the item in another resource</td>
+</tr>
+<tr>
+<td>source</td>
+<td>ExternalDB</td>
+<td>see ExternalDB</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>ValueSetMetadata</code> item will have the following shape:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>item's identifier in a value sets glossary</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string, number, or boolean</td>
+<td>value intended for programmatic use by the consumer</td>
+</tr>
+<tr>
+<td>label</td>
+<td>string</td>
+<td>a short, human-readable and display-friendly label</td>
+</tr>
+<tr>
+<td>definition</td>
+<td>string</td>
+<td>succinct definition of the term</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>optional longer description that can contain nuances</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: apart from the fields listed in the table above, <code>ValueSetMetadata</code> items may also contain additional optional fields unique for each given kind of metadata. See <code>TranscriptManeMetadata</code> for an example.</p>
+<p>Listed below are concrete realizations of different metadata items.</p>
+<p>===</p>
+<h2>Gene metadata</h2>
+<p>A <code>Gene</code> has the following metadata associated with it:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>GeneNameMetadata or null</td>
+</tr>
+<tr>
+<td>function</td>
+<td>GeneFunctionMetadata or null</td>
+</tr>
+<tr>
+<td>biotype</td>
+<td>GeneBiotypeMetadata</td>
+</tr>
+</tbody>
+</table>
+<h3>GeneNameMetadata</h3>
+<p>Gene name metadata is an instance of <code>XrefMetadata</code>.</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: {
+    &quot;accession_id&quot;: &quot;...&quot;,
+    &quot;value&quot;: &quot;...&quot;,
+    &quot;url&quot;: &quot;...&quot;,
+    &quot;source&quot;: {
+      &quot;name&quot;: &quot;...&quot;,
+      &quot;url&quot;: &quot;...&quot;,
+      &quot;description&quot;: &quot;...&quot;
+    }
+  }
+}
+</code></pre>
+<h3>GeneFunctionMetadata</h3>
+<p>Gene function metadata is an instance of <code>XrefMetadata</code>. The information about gene function is provided by Uniprot.</p>
+<pre><code class="language-json">{
+  &quot;function&quot;: {
+    &quot;accession_id&quot;: &quot;...&quot;,
+    &quot;value&quot;: &quot;...&quot;,
+    &quot;url&quot;: &quot;...&quot;,
+    &quot;source&quot;: {
+      &quot;name&quot; : &quot;...&quot;,
+      &quot;url&quot; : &quot;...&quot;,
+      &quot;description&quot; : &quot;...&quot;
+    }
+  }
+}
+</code></pre>
+<h3>GeneBiotypeMetadata</h3>
+<p>Gene biotype metadata is an instance of <code>ValueSetMetadata</code>:</p>
+<pre><code class="language-json">{
+  &quot;biotype&quot;: {
+    &quot;accession_id&quot;: &quot;biotype.gene_protein_coding&quot;,
+    &quot;value&quot;: &quot;protein_coding&quot;,
+    &quot;label&quot;: &quot;Protein coding&quot;,
+    &quot;definition&quot;: &quot;Gene loci with at least one protein coding transcript.&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<p>===</p>
+<h2>Transcript metadata</h2>
+<p>A <code>Transcript</code> has the following metadata associated with it:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>function</td>
+<td>TranscriptFunctionMetadata or null</td>
+</tr>
+<tr>
+<td>gencode_basic</td>
+<td>TranscriptGencodeBasicMetadata or null</td>
+</tr>
+<tr>
+<td>canonical</td>
+<td>TranscriptCanonicalMetadata</td>
+</tr>
+<tr>
+<td>mane</td>
+<td>TranscriptManeMetadata or null</td>
+</tr>
+<tr>
+<td>tsl</td>
+<td>TranscriptTSLMetadata</td>
+</tr>
+<tr>
+<td>appris</td>
+<td>TranscriptApprisMetadata</td>
+</tr>
+<tr>
+<td>biotype</td>
+<td>TranscriptBiotypeMetadata</td>
+</tr>
+</tbody>
+</table>
+<h3>TranscriptFunctionMetadata</h3>
+<p>Like gene function metadata, transcript function metadata is an instance of <code>XrefMetadata</code>. The information about gene function is provided by Uniprot.</p>
+<pre><code class="language-json">{
+  &quot;function&quot;: {
+    &quot;value&quot;: &quot;...&quot;,
+    &quot;url&quot;: &quot;...&quot;,
+    &quot;source&quot;: {
+      &quot;name&quot; : &quot;...&quot;,
+      &quot;url&quot; : &quot;...&quot;,
+      &quot;description&quot; : &quot;...&quot;
+    }
+  }
+}
+</code></pre>
+<h3>TranscriptBiotypeMetadata</h3>
+<p>Like gene biotype metadata, transcript biotype metadata is an instance of <code>ValueSetMetadata</code>. It will likely have a different definition from gene biotype metadata, necessitating a different accession_id.</p>
+<pre><code class="language-json">{
+  &quot;biotype&quot;: {
+    &quot;accession_id&quot;: &quot;biotype.transcript_protein_coding&quot;,
+    &quot;value&quot;: &quot;protein_coding&quot;,
+    &quot;label&quot;: &quot;Protein coding&quot;,
+    &quot;definition&quot;: &quot;An mRNA that can be translated into a protein.&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<h3>TranscriptGencodeBasicMetadata</h3>
+<p>Transcript gencode basic metadata is an instance of <code>ValueSetMetadata</code>:</p>
+<pre><code class="language-json">{
+  &quot;gencode_basic&quot;: {
+    &quot;accession_id&quot;: &quot;gencode_basic.true&quot;,
+    &quot;value&quot;: true,
+    &quot;label&quot;: &quot;GENCODE Basic&quot;,
+    &quot;definition&quot;: &quot;Gene loci with at least one protein coding transcript.&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<p>Note: transcript gencode basic metadata is only applicable for human and mouse transcripts.</p>
+<h3>TranscriptCanonicalMetadata</h3>
+<p>There is always one — and only one — transcript among gene transcripts that is designated as canonical. The transcript canonical metadata is an instance of <code>ValueSetMetadata</code>:</p>
+<pre><code class="language-json">{
+  &quot;canonical&quot;: {
+    &quot;accession_id&quot;: &quot;canonical_transcript.true&quot;,
+    &quot;value&quot;: true,
+    &quot;label&quot;: &quot;Ensembl canonical&quot;,
+    &quot;definition&quot;: &quot;???&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<p><em>To be determined:</em> whether the transcript canonical metadata will also need to include an <code>evidence</code> field.</p>
+<h3>TranscriptManeMetadata</h3>
+<p>Transcript MANE metadata is an instance of <code>ValueSetMetadata</code>.</p>
+<pre><code class="language-json">{
+  &quot;mane&quot;: {
+    &quot;accession_id&quot;: &quot;mane.select&quot;,
+    &quot;value&quot;: &quot;select&quot;,
+    &quot;label&quot;: &quot;MANE Select&quot;,
+    &quot;definition&quot;: &quot;Gene loci with at least one protein coding transcript.&quot;,
+    &quot;description&quot;: &quot;???&quot;,
+    &quot;ncbi_transcript&quot;: {
+      &quot;id&quot;: &quot;NM_001374244&quot;,
+      &quot;url&quot;: &quot;https://www.ncbi.nlm.nih.gov/protein/NM_001374244&quot;
+    }
+  }
+}
+</code></pre>
+<p>Notice that it has a custom <code>ncbi_transcript</code> field.</p>
+<h3>TranscriptTSLMetadata</h3>
+<p>Transcript TSL metadata is an instance of <code>ValueSetMetadata</code>.</p>
+<pre><code class="language-json">{
+  &quot;tsl&quot;: {
+    &quot;accession_id&quot;: &quot;tsl.one&quot;,
+    &quot;value&quot;: 1, // there is also a tslNA — would it be a null?
+    &quot;label&quot;: &quot;TSL:1&quot;,
+    &quot;definition&quot;: &quot;All splice junctions of the transcript are supported by at least one non-suspect mRNA.&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<h3>TranscriptApprisMetadata</h3>
+<p>Transcript APPRIS metadata is an instance of <code>ValueSetMetadata</code>.</p>
+<pre><code class="language-json">{
+  &quot;appris&quot;: {
+    &quot;accession_id&quot;: &quot;appris.alternative-one&quot;,
+    &quot;value&quot;: &quot;alternative1&quot;,
+    &quot;label&quot;: &quot;APPRIS alternative:1&quot;,
+    &quot;definition&quot;: &quot;Candidate transcript model that is conserved in at least three tested species.&quot;,
+    &quot;description&quot;: &quot;???&quot;
+  }
+}
+</code></pre>
+<p>===</p>
+<h2>Prospective transcript metadata</h2>
+<p>Transcript metadata that is expected to be added in the future.</p>
+<h3>TranscriptGencodePrimaryMetadata</h3>
+<p>Transcript gencode primary metadata is an instance of <code>ValueSetMetadata</code>:</p>
+<pre><code class="language-json">{
+    &quot;gencode_primary&quot;: {
+      &quot;accession_id&quot;: &quot;gencode_primary.true&quot;,
+      &quot;value&quot;: true,
+      &quot;label&quot;: &quot;GENCODE Primary&quot;,
+      &quot;definition&quot;: &quot;Gene loci with at least one protein coding transcript.&quot;,
+      &quot;description&quot;: &quot;???&quot;,
+    },
+}
+</code></pre>
+<p><em>To be determined:</em>  whether the transcript gencode primary metadata will also include a <code>reasons</code> field containing reasons for inclusion of this transcript in the gencode primary category.</p>
+<h3>TranscriptExonicOverlapSameStrandMetadata</h3>
+<p>Transcript APPRIS metadata is an instance of <code>ValueSetMetadata</code>. Note the presence of the additional <code>associated_features</code> field.</p>
+<pre><code class="language-json">{
+  &quot;exonic_overlap_same_strand&quot;: {
+    &quot;accession_id&quot;: &quot;biotype_additional_attribute.exonic_overlap_same_strand&quot;,
+    &quot;value&quot;: &quot;exonic_overlap_same_strand&quot;,
+    &quot;label&quot;: &quot;Exonic overlap with another transcript (same strand)&quot;,
+    &quot;definition&quot;: &quot;Exonic overlap (same strand) with another Ensembl/GENCODE transcript&quot;,
+    &quot;associated_features&quot;: [
+      {
+        &quot;type&quot;: &quot;Gene&quot;,
+        &quot;stable_id&quot;: &quot;ENSG&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<p>===</p>
+<h2>Other metadata</h2>
+<h3>OntologyTermMetadata</h3>
+<p>Ontology term metadata is common across different types of features and also exists on non-features, such as <code>Region</code>. It is an instance of <code>XrefMetadata</code>. An example would look as follows:</p>
+<pre><code class="language-json">{
+  &quot;accession_id&quot;: &quot;SO:0000147&quot;,
+  &quot;value&quot;: &quot;exon&quot;,
+  &quot;url&quot;: &quot;www.sequenceontology.org/browser/current_release/term/SO:0000147&quot;,
+  &quot;source&quot;: {
+    &quot;name&quot;: &quot;Sequence Ontology&quot;,
+    &quot;url&quot;: &quot;www.sequenceontology.org&quot;,
+    &quot;description&quot;: &quot;The Sequence Ontology...&quot;
+  }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

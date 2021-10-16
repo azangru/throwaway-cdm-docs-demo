@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Strand</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Strand</h1>
+<p>The purpose of the Strand data type is to indicate which strand of a double-stranded molecule a Feature is located on.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>StrandCode</td>
+</tr>
+<tr>
+<td>value</td>
+<td>StrandValue</td>
+</tr>
+</tbody>
+</table>
+<h2>StrandCode</h2>
+<p><code>StrandCode</code> is a string-based system for identifying a Strand. It is an enum of two possible string values:</p>
+<ul>
+<li>&quot;forward&quot;</li>
+<li>&quot;reverse&quot;</li>
+</ul>
+<h2>StrandValue</h2>
+<p><code>StrandValue</code> is a string-based system for identifying a Strand. It is an enum of two possible numerical values:</p>
+<ul>
+<li>1</li>
+<li>-1</li>
+</ul>
+<p>where <code>1</code> signifies forward strand and <code>-1</code> signifies the reverse strand.</p>
+<h2>Notes</h2>
+<ol>
+<li>The <code>code</code> and the <code>value</code> properties are two alternative ways of identifyingd a Strand.</li>
+<li>The fields of the Strand data type are therefore redundant. If the <code>code</code> field is set to <code>&quot;forward&quot;</code>, the <code>value</code> field will necessarily be set to <code>1</code>, and vice versa.</li>
+<li>The purpose of the <code>value</code> field is to maintain continuity with the way Ensembl has historically labelled strands of double-stranded polynucleotides. The purpose of the <code>code</code> field is to improve human readability of the data received over an API.</li>
+<li>The Strand of a single-stranded polynucleotide is always <code>&quot;forward&quot;</code>.</li>
+</ol>
+<h2>Examples</h2>
+<p>Below is the exhaustive list of values of the Strand data type:</p>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot;forward&quot;,
+  &quot;value&quot;: 1
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;code&quot;: &quot;reverse&quot;,
+  &quot;value&quot;: -1
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

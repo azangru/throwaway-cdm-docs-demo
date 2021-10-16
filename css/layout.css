@@ -1,0 +1,39 @@
+body {
+  display: grid;
+  grid-template-areas: 
+    'header header'
+    'aside main';
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 2rem;
+}
+
+main {
+  grid-area: main;
+  padding-left: 80px;
+}
+
+header {
+  grid-area: header;
+}
+
+aside {
+  grid-area: aside;
+}
+
+ul.navigation {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+ul.navigation li {
+  padding: 0.2rem 0;
+}
+
+.content {
+  max-width: 80ch;
+}
+
+pre {
+  overflow-x: auto;
+}

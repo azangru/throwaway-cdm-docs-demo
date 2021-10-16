@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Product</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Product</h1>
+<p>The <code>Product</code> data type contains information about the mature functioning molecule produced from a Gene. Depending on whether this molecule is a protein or an RNA, the <code>Product</code> is subdivided into a <code>ProteinProduct</code> and an <code>RNAProduct</code>.</p>
+<p>Both <code>ProteinProduct</code> and the <code>RNAProduct</code> will have the following fields in common:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Type of the product (e.g. &quot;Protein&quot; or &quot;RNA&quot;)</td>
+</tr>
+<tr>
+<td>length</td>
+<td>integer</td>
+<td>Number of subunits (amino acids for proteins, nucleotides for RNA) comprising the product</td>
+</tr>
+<tr>
+<td>external_references</td>
+<td>array of External Reference</td>
+<td>See <code>External Reference</code></td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>Sequence</td>
+<td>See <code>Sequence</code></td>
+</tr>
+</tbody>
+</table>
+<h2>ProteinProduct</h2>
+<p>In addition to the fields common for all <code>Product</code>s, a <code>ProteinProduct</code> will have the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stable_id</td>
+<td>string</td>
+<td>Unique identifier for the product (versioned)</td>
+</tr>
+<tr>
+<td>unversioned_stable_id</td>
+<td>string</td>
+<td>Unversioned unique identifier for the product</td>
+</tr>
+<tr>
+<td>version</td>
+<td>integer or null</td>
+<td>Version of the product</td>
+</tr>
+<tr>
+<td>family_matches</td>
+<td><code>FamilyMatch</code> array</td>
+<td>See <code>Family Match</code> below</td>
+</tr>
+<tr>
+<td>mappings</td>
+<td>array of <code>Mapping</code>s</td>
+<td>See <code>Mapping</code> below</td>
+</tr>
+</tbody>
+</table>
+<h2>Family Match</h2>
+<p><code>FamilyMatch</code> contains information about a match between the product sequence and a sequence from a known family recorded in an external database. It has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sequence_family</td>
+<td>SequenceFamily</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>via</td>
+<td>ClosestDataProvider or null</td>
+<td>See below</td>
+</tr>
+<tr>
+<td>relative_location</td>
+<td>Location</td>
+<td>Location within the product where the hit lands (see <code>Location</code>)</td>
+</tr>
+<tr>
+<td>hit_location</td>
+<td>Location or null</td>
+<td>Location within the family sequence that is matched to the product sequence (see <code>Location</code>)</td>
+</tr>
+<tr>
+<td>score</td>
+<td>float or null</td>
+<td>Analysis score asserting the presence of this match at this location</td>
+</tr>
+<tr>
+<td>evalue</td>
+<td>float or null</td>
+<td>Expectation value for the presence of this match at this location</td>
+</tr>
+</tbody>
+</table>
+<h3>Sequence Family</h3>
+<p>Reference to the sequence family record in the database that is the original provider of the data about this family.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>ExternalDB</td>
+<td>See <code>ExternalDB</code> in the documentation of <code>ExternalReference</code></td>
+</tr>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>Unique identifier of the family in the source database</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the family</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>Description of the family</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string or null</td>
+<td>Url for accessing the family in the source database</td>
+</tr>
+</tbody>
+</table>
+<h3>Closest Data Provider</h3>
+<p>For cases when a match was calculated using an aggregator database, such as Interpro, this is the reference to the record in such database.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>ExternalDB</td>
+<td>See <code>ExternalDB</code> in the documentation of <code>ExternalReference</code></td>
+</tr>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>Unique identifier of the family in the database</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Url for accessing the family in the source database</td>
+</tr>
+</tbody>
+</table>
+<h2>Mapping</h2>
+<p>The <code>Mapping</code> data structure describes a match between an Ensembl feature and a feature from an external database, e.g. Uniprot. It has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>ExternalDB</td>
+<td>See <code>ExternalDB</code> in the documentation of <code>ExternalReference</code></td>
+</tr>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>Unique identifier of the feature in the source database</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Url for accessing the feature in the source database</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string or null</td>
+<td>Name of the feature</td>
+</tr>
+<tr>
+<td>relative_location</td>
+<td>Location</td>
+<td>Location within the product where the hit lands (see <code>Location</code>)</td>
+</tr>
+<tr>
+<td>hit_location</td>
+<td>Location</td>
+<td>Location within the external feature that is matched to the product sequence (see <code>Location</code>)</td>
+</tr>
+<tr>
+<td>genomic_locations</td>
+<td>array of GenomicMappingLocation</td>
+<td>Location within the genomic space corresponding to the product sequence that matches the external feature</td>
+</tr>
+<tr>
+<td>score</td>
+<td>float or null</td>
+<td>Analysis score asserting the presence of this match at this location</td>
+</tr>
+<tr>
+<td>evalue</td>
+<td>float or null</td>
+<td>Expectation value for the presence of this match at this location</td>
+</tr>
+</tbody>
+</table>
+<h3>GenomicMappingLocation</h3>
+<p><code>GenomicMappingLocation</code> provides the information about how the mapping between an Ensembl product and an external feature projects back onto the genomic space.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slice</td>
+<td>Slice</td>
+<td>see Slice</td>
+</tr>
+<tr>
+<td>cigar_string</td>
+<td>string</td>
+<td>a string representing the alignment</td>
+</tr>
+</tbody>
+</table>
+<h2>Notes</h2>
+<ol>
+<li>An RNA product is a mature RNA, which can be described by its cDNA. Since cDNAs don't have stable ids in Ensembl, RNA products are unlikely to have stable ids either.</li>
+<li>For a match between an Ensembl product and an external feature, the location of the matching sequence within the Ensembl product is referred to here as <code>relative_location</code>, the location of the matching sequence within the external feature, as <code>hit_location</code>, and the projection of Ensembl product's matching sequence onto genomic coordinates, as <code>genomic_location</code>.</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/6834224/117651701-2805bd00-b18a-11eb-9569-a1a27ebcdc5b.png" alt="diagram of a match"></p>
+<ol start="3">
+<li>A <code>slice</code> associated with a single <code>genomic_location</code> can span multiple exons; and the exact match is described using a CIGAR string in the <code>cigar_string</code> field. Because trans-splicing is possible, the <code>genomic_locations</code> field of a <code>Mapping</code> is an array.</li>
+<li>A <code>relative_location</code> length may be the same as the <code>hit_location</code> length, or it may be different due to mismatches.</li>
+</ol>
+<h2>Example</h2>
+<pre><code class="language-json">{
+  &quot;stable_id&quot;: &quot;ENSP00000369497.3&quot;,
+  &quot;unversioned_stable_id&quot;: &quot;ENSP00000369497&quot;,
+  &quot;version&quot;: 3,
+  &quot;type&quot;: &quot;protein&quot;,
+  &quot;length&quot;: 3418,
+  &quot;external_references&quot;: [],
+  &quot;sequence&quot;: { ... },
+  &quot;family_matches&quot;: [
+    {
+      &quot;sequence_family&quot;: {
+        &quot;source&quot;: {
+          &quot;id&quot;: ???,
+          &quot;name&quot;: &quot;Pfam&quot;,
+          &quot;description&quot;: null,
+          &quot;url&quot;: &quot;https://pfam.xfam.org&quot;,
+          &quot;release&quot;: 34
+        },
+        &quot;accession_id&quot;: &quot;PF00634&quot;,
+        &quot;name&quot;: &quot;BRCA2 repeat&quot;,
+        &quot;url&quot;: &quot;https://pfam.xfam.org/family/PF00634&quot;
+      },
+      &quot;via&quot;: {
+        &quot;source&quot;: {
+          &quot;id&quot;: ???,
+          &quot;name&quot;: &quot;Interpro&quot;,
+          &quot;description&quot;: null,
+          &quot;url&quot;: &quot;https://www.ebi.ac.uk/interpro&quot;,
+          &quot;release&quot;: null
+        },
+        &quot;accession_id&quot;: &quot;IPR002093&quot;,
+        &quot;url&quot;: &quot;https://www.ebi.ac.uk/interpro/entry/InterPro/IPR002093/&quot;
+      },
+      &quot;location&quot;: {
+        &quot;start&quot;: 1003,
+        &quot;end&quot;: 1035,
+        &quot;length&quot;: 33
+      },
+      &quot;score&quot;: ???,
+      &quot;evalue&quot;: ???,
+      &quot;hit_location&quot;: {
+        &quot;start&quot;: 1,
+        &quot;end&quot;: 33,
+        &quot;length&quot;: 33
+      },
+    }
+  ],
+  &quot;mappings&quot;: [
+    {
+      &quot;source&quot;: {
+        &quot;id&quot;: ???,
+        &quot;name&quot;: &quot;Uniprot&quot;,
+        &quot;description&quot;: null,
+        &quot;url&quot;: &quot;https://www.uniprot.org/&quot;,
+        &quot;release&quot;: null
+      },
+      &quot;accession_id&quot;: &quot;P51587&quot;,
+      &quot;url&quot;: &quot;https://www.uniprot.org/uniprot/P51587&quot;,
+      &quot;name&quot;: &quot;Breast cancer type 2 susceptibility protein&quot;,
+      &quot;genomic_locations&quot;: [
+        {
+          &quot;slice&quot;: { ... },
+          &quot;cigar_string&quot;: &quot;...&quot;
+        }
+      ],
+      &quot;relative_location&quot;: {
+        &quot;start&quot;: 25,
+        &quot;end&quot;: 106,
+        &quot;length&quot;: 82
+      },
+      &quot;score&quot;: ???,
+      &quot;evalue&quot;: ???,
+      &quot;hit_location&quot;: {
+        &quot;start&quot;: 2,
+        &quot;end&quot;: 80,
+        &quot;length&quot;: 79
+      },
+    }
+  ]
+}
+</code></pre>
+<p>(notice that in the example above, the mapping to Uniprot has different lengths of <code>relative_location</code> and <code>hit_location</code>)</p>
+<h2>RNA Product</h2>
+<p>To be completed in the future, when RNA products will receive identifiers in Ensembl databases.</p>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

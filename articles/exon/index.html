@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Exon</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Exon</h1>
+<p>The <code>Exon</code> data type represents a fragment of a gene that is present in the mature messenger RNA molecule from that gene. It has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>integer</td>
+<td>version of exon's annotation</td>
+</tr>
+<tr>
+<td>stable_id</td>
+<td>string</td>
+<td>exon's stable id</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>the value is always &quot;Exon&quot;</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>string</td>
+<td>raw nucleotide sequence (see also Sequence, value)</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>Slice</td>
+<td>see Slice</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>Metadata</td>
+<td>See <a href="./feature_metadata.md">feature_metadata</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Notes</h2>
+<ol>
+<li>Ensembl uses the term <code>Exon</code> in a broader sense than it traditionally has in molecular and cell biology. In biology, exons, by definition, are restricted to eukaryotes and Archaea, whose RNA, during maturation, undergoes a process of splicing, in which some RNA fragments (introns) are removed, while the remaining RNA fragments (exons) are joined together. In contrast, Ensembl uses the term <code>Exon</code> to refer to gene fragments that are present in the final form of the messenger RNA molecule regardless of whether splicing has taken place. Thus, bacterial genes will also be described by Ensembl as containing exons (one exon per gene).</li>
+<li>The data contained within the <code>Exon</code> data type is stable regardless of which <code>Transcript</code> the <code>Exon</code> is a part of or how it was joined with other exons during splicing (see <code>Product-Generating Context</code>). For additional data about the exon that depends on its context, see <code>Spliced Exon</code> and <code>Phased Exon</code> data types.</li>
+<li>Since an <code>Exon</code> contains only context-independent data, it can be retrieved directly by its stable id via an api.</li>
+</ol>
+<h2>Example</h2>
+<pre><code class="language-json">{
+  &quot;stable_id&quot;: &quot;ENSE00003856928&quot;,
+  &quot;version&quot;: 1,
+  &quot;type&quot;: &quot;Exon&quot;,
+  &quot;metadata&quot;: {
+    &quot;ontology_terms&quot;: [
+      {
+        &quot;accession_id&quot;: &quot;SO:0000147&quot;,
+        &quot;value&quot;: &quot;exon&quot;,
+        &quot;url&quot;: &quot;www.sequenceontology.org/browser/current_release/term/SO:0000147&quot;,
+        &quot;source&quot;: {
+          &quot;name&quot;: &quot;Sequence Ontology&quot;,
+          &quot;url&quot;: &quot;www.sequenceontology.org&quot;,
+          &quot;description&quot;: &quot;The Sequence Ontology...&quot;
+        }
+      }
+    ]
+  },
+  &quot;slice&quot;: {
+    &quot;location&quot;: {
+      &quot;start&quot;: 32315086,
+      &quot;end&quot;: 32315145,
+      &quot;length&quot;: 60
+    },
+    &quot;region&quot;: {
+      &quot;name&quot;: &quot;13&quot;,
+      &quot;code&quot;: &quot;chromosome&quot;
+    },
+    &quot;strand&quot;: {
+      &quot;code&quot;: &quot;forward&quot;,
+      &quot;value&quot;: 1
+    }
+  }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

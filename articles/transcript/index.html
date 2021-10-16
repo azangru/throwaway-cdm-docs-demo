@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Transcript</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Transcript</h1>
+<p>The Transcript data type describes a operational unit of a gene. In a genomic context, transcripts consist of one or more exons, with adjoining exons being separated by introns. The exons/introns are transcribed and then the introns spliced out. Transcripts may or may not encode a protein. <code>Transcript</code> has the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>Short name</td>
+</tr>
+<tr>
+<td>relative_location</td>
+<td>RelativeLocation</td>
+<td>Location of the transcript in relation to the gene</td>
+</tr>
+<tr>
+<td>stable_id</td>
+<td>string</td>
+<td>A unique identifier for the transcript</td>
+</tr>
+<tr>
+<td>version</td>
+<td>integer</td>
+<td>Version of the transcript</td>
+</tr>
+<tr>
+<td>unversioned_stable_id</td>
+<td>string</td>
+<td>Unversioned unique identifier for the transcript</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>The value is always <code>Transcript</code></td>
+</tr>
+<tr>
+<td>slice</td>
+<td>Slice</td>
+<td>Slice describing the coordinates of the transcript</td>
+</tr>
+<tr>
+<td>spliced_exons</td>
+<td>array of SplicedExon</td>
+<td>The ordered list of exons of the transcript</td>
+</tr>
+<tr>
+<td>introns</td>
+<td>array of Intron</td>
+<td>The ordered list of introns of the transcript</td>
+</tr>
+<tr>
+<td>product_generating_contexts</td>
+<td>array of ProductGeneratingContext</td>
+<td>see ProductGeneratingContext</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>TranscriptMetadata</td>
+<td>See <a href="./feature_metadata.md">feature_metadata</a></td>
+</tr>
+<tr>
+<td>gene</td>
+<td>Gene</td>
+<td>The parent gene of the transcript, see Gene</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-json">{
+  &quot;symbol&quot;: &quot;BRCA2&quot;,
+  &quot;relative_location&quot;: { ... },
+  &quot;stable_id&quot;: &quot;ENST00000380152.7&quot;,
+  &quot;version&quot;: 7,
+  &quot;unversioned_stable_id&quot;:&quot;ENST00000380152&quot;,
+  &quot;type&quot;: &quot;Transcript&quot;,
+  &quot;slice&quot;: { ... },
+  &quot;spliced_exons&quot;: [],
+  &quot;introns&quot;: [],
+  &quot;product_generating_contexts&quot;: [],
+  &quot;metadata&quot;: { ... }
+  &quot;gene&quot;: { ... }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

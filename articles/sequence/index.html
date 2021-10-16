@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Sequence</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Sequence</h1>
+<p>The <code>Sequence</code> data type describes a contiguous set of nucleic acid or amino acid residues in biological molecules, such as DNA, RNA, or proteins.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alphabet</td>
+<td>SequenceAlphabet</td>
+<td>Alphabet with which the sequence is encoded</td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>string</td>
+<td>A checksum digest derived from the underlying sequence held in value</td>
+</tr>
+<tr>
+<td>sequence</td>
+<td>string</td>
+<td>Optional field! Contains the string representing the biological sequence.</td>
+</tr>
+</tbody>
+</table>
+<h2>SequenceAlphabet</h2>
+<p><code>SequenceAlphabet</code> is an Ensembl value set</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accession_id</td>
+<td>string</td>
+<td>accession id in Ensembl database of Value Sets</td>
+</tr>
+<tr>
+<td>label</td>
+<td>string</td>
+<td>short, pretty-printed label ready for display</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>a string intended for programmatic use by consumer</td>
+</tr>
+<tr>
+<td>definition</td>
+<td>string</td>
+<td>succinct definition of the term</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string or null</td>
+<td>optional longer description that can contain nuances</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-json">{
+  &quot;alphabet&quot;: {
+    &quot;accession_id&quot;: &quot;sequence_alphabet.dna&quot;,
+    &quot;value&quot;: &quot;dna&quot;,
+    &quot;label&quot;: &quot;DNA&quot;,
+    &quot;definition&quot;: &quot;IUPAC notation for DNA sequence&quot;,
+    &quot;description&quot;: null
+  }
+}
+</code></pre>
+<h2>Notes</h2>
+<ol>
+<li>The value of the sequence field is a string of letters (bound by IUPAC codes for amino acids and DNA), which represents biological sequence using conventional sequence ordering i.e. telomere to centromere to telomere, 5' to 3' or amino-to-caboxyl. Redundancy symbols, such as <code>N</code>, are permitted.</li>
+<li>GA4GH identifiers are preferred as checksums since they are a CURIE and therefore namespace the checksum</li>
+<li>Sequence strings can be quite large (for example, they may represent the nucleotide sequence of a whole chromosome). Therefore, due to technical constraints, some implementations that provide the <code>Sequence</code> data type (e.g. a graphQL server) may not contain the <code>sequence</code> field. If the <code>sequence</code> field is present, it contains a string of upper-case characters with no white spaces.</li>
+<li>If the <code>sequence</code> field is unavailable in a given implementation, the checksum can be used to retreive the sequence from a refget service.</li>
+</ol>
+<h2>Example</h2>
+<pre><code class="language-json">{
+  &quot;alphabet&quot;: {
+    &quot;accession_id&quot;: &quot;sequence_alphabet.dna&quot;,
+    &quot;value&quot;: &quot;dna&quot;,
+    &quot;label&quot;: &quot;DNA&quot;,
+    &quot;definition&quot;: &quot;IUPAC notation for DNA sequence&quot;,
+    &quot;description&quot;: null
+  },
+  &quot;checksum&quot;: &quot;e8f2b6ffd919c3cd209cb68afe8872da&quot;,
+  &quot;sequence&quot;: &quot;ACGGATCGACAGTAGTTAGA&quot;
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>

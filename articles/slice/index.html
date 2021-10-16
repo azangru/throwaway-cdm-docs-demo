@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" dir="ltr">   
+  <head>
+    <title>Slice</title>
+    <meta name="description" content="A list of projects linked with the Ensembl projects">
+    <meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href='/css/styles.css' rel="stylesheet" type="text/css">
+    <script defer src="https://unpkg.com/lunr@2.3.9/lunr.js"></script>
+    <script defer src="/js/index.js" type="module"></script>
+  </head>
+
+  <body>
+    <header>
+      <span class="ensembl-logotype">
+        <a href="/">
+          <img src="/images/logotype.svg" alt="Ensembl logotype" height="30" />
+        </a>
+      </span>
+      <span>
+        core data model
+      </span>
+      <x-search></x-search>
+    </header>
+
+    <main>
+      <div class="content">
+        <h1>Slice</h1>
+<p>The Slice data type contains the information sufficient to describe the position of a Feature on a coordinate system. It consists of the following fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>region</td>
+<td>Region</td>
+<td>see Region</td>
+</tr>
+<tr>
+<td>location</td>
+<td>Location</td>
+<td>see Location</td>
+</tr>
+<tr>
+<td>strand</td>
+<td>Strand</td>
+<td>see Strand</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<ol>
+<li>Slice taken by transcript ENST00000671466.1 (BRCA2-211):</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;location&quot;: {
+    &quot;start&quot;: 32315086,
+    &quot;end&quot;: 32316527,
+    &quot;length&quot;: 1442
+  },
+  &quot;region&quot;: {
+    &quot;name&quot;: &quot;13&quot;,
+    &quot;code&quot;: &quot;chromosome&quot;,
+    &quot;topology&quot;: &quot;linear&quot;,
+    &quot;length&quot;: 114364328
+  },
+  &quot;strand&quot;: {
+    &quot;code&quot;: &quot;forward&quot;,
+    &quot;value&quot;: 1
+  }
+}
+</code></pre>
+<ol start="2">
+<li>Slice taken by the <code>hemE</code> gene — a gene on a circular bacterial chromosome (which Ensembl labels simply as &quot;Chromosome&quot;) that overlaps the origin:</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;location&quot;: {
+    &quot;start&quot;: 5056183,
+    &quot;end&quot;: 72,
+    &quot;length&quot;: 1032
+  },
+  &quot;region&quot;: {
+    &quot;name&quot;: &quot;Chromosome&quot;,
+    &quot;code&quot;: &quot;chromosome&quot;,
+    &quot;topology&quot;: &quot;circular&quot;,
+    &quot;length&quot;: 5057142
+  },
+  &quot;strand&quot;: {
+    &quot;code&quot;: &quot;reverse&quot;,
+    &quot;value&quot;: -1
+  }
+}
+</code></pre>
+
+      </div>
+    </main>
+
+    <aside>
+      <ul class="navigation">
+        
+          <li>
+            <a href="/articles/assembly/">Assembly</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cdna/">cDNA</a>
+          </li>
+        
+          <li>
+            <a href="/articles/cds/">CDS</a>
+          </li>
+        
+          <li>
+            <a href="/articles/exon/">Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/external_reference/">External Reference</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature/">Feature</a>
+          </li>
+        
+          <li>
+            <a href="/articles/feature_metadata/">Feature metadata</a>
+          </li>
+        
+          <li>
+            <a href="/articles/gene/">Gene</a>
+          </li>
+        
+          <li>
+            <a href="/articles/intron/">Intron</a>
+          </li>
+        
+          <li>
+            <a href="/articles/location/">Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/phased_exon/">Phased Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product/">Product</a>
+          </li>
+        
+          <li>
+            <a href="/articles/product_generating_context/">Product-Generating Context</a>
+          </li>
+        
+          <li>
+            <a href="/articles/region/">Region</a>
+          </li>
+        
+          <li>
+            <a href="/articles/relative_location/">Relative Location</a>
+          </li>
+        
+          <li>
+            <a href="/articles/sequence/">Sequence</a>
+          </li>
+        
+          <li>
+            <a href="/articles/slice/">Slice</a>
+          </li>
+        
+          <li>
+            <a href="/articles/species/">Species</a>
+          </li>
+        
+          <li>
+            <a href="/articles/spliced_exon/">Spliced Exon</a>
+          </li>
+        
+          <li>
+            <a href="/articles/strand/">Strand</a>
+          </li>
+        
+          <li>
+            <a href="/articles/transcript/">Transcript</a>
+          </li>
+        
+          <li>
+            <a href="/articles/utr/">UTR</a>
+          </li>
+        
+      </ul>
+    </aside>
+
+  </body>
+</html>
