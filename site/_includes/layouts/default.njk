@@ -12,14 +12,14 @@
   <body>
     <header>
       <span class="ensembl-logotype">
-        <a href='{{ "/" | url}}'>
+        <a href='{{ "/" | url }}'>
           <img src='{{ "/images/logotype.svg" | url }}' alt="Ensembl logotype" height="30" />
         </a>
       </span>
       <span>
         core data model
       </span>
-      <x-search></x-search>
+      <x-search baseUrl="{{ '/' | url }}"></x-search>
     </header>
 
     <main>

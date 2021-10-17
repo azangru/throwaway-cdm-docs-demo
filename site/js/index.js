@@ -52,6 +52,7 @@ export class Search extends LitElement {
   `;
 
   static properties = {
+    baseUrl: { type: String },
     index: { state: true },
     articleTitles: { state: true },
     matches: { state: true }
@@ -68,6 +69,15 @@ export class Search extends LitElement {
     this.fetchData();
   }
 
+  buildUrl(url) {
+    const baseUrl = this.baseUrl || '/';
+    if (url.startsWith('/')) {
+      url = url.substring(1);
+    }
+
+    return `${baseUrl}${url}`;
+  }
+
   async fetchData() {
     await Promise.all([
       this.fetchIndex(),
@@ -76,22 +86,20 @@ export class Search extends LitElement {
   }
 
   async fetchIndex() {
-    const rawIndex = await fetch("/throwaway-cdm-docs-demo/search-index.json")
+    const rawIndex = await fetch(this.buildUrl('/search-index.json'))
       .then((response) => response.json());
     this.index = lunr.Index.load(rawIndex);
   }
 
   async fetchArticleTitles() {
-    const articleTitles = await fetch("/throwaway-cdm-docs-demo/atricle-titles.json")
+    const articleTitles = await fetch(this.buildUrl('/atricle-titles.json'))
       .then((response) => response.json());
     this.articleTitles = articleTitles;
   }
 
   search = (event) => {
     const query = event.target.value;
-    console.log('query', query);
     if (!query) {
-      console.log('here?');
       this.matches = [];
     } else {
       this.matches = this.index.search(query);
@@ -114,7 +122,7 @@ export class Search extends LitElement {
       <ul class="matches">
         ${ this.matches.map(match => html`
           <li>
-            <a href="/throwaway-cdm-docs-demo/${match.ref}">${this.articleTitles[match.ref]  }</a>
+            <a href="${this.buildUrl(match.ref)}">${this.articleTitles[match.ref]  }</a>
           </li>
         `)}
       </ul>
